@@ -58,7 +58,7 @@ def product_create_view(request, *args, **kwargs):
         form = ProductModelForm()
         # return HttpResponseRedirect("/success")
         # return redirect("/success")
-    return render(request, "forms.html", {"form": form})
+    return render(request, "forms.html", {"form": form}) # 200
 
 
 

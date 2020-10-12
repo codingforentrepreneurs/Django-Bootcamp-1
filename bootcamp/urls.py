@@ -30,9 +30,10 @@ from products.views import (
     product_list_view,
     product_api_detail_view
 )
-
+from django.views.generic import TemplateView
 urlpatterns = [
     # path('bad-view-dont-use/', bad_view),
+    path('', TemplateView.as_view(template_name='base.html')),
     path('login/', login_view),
     path('logout/', logout_view),
     path('register/', register_view),
