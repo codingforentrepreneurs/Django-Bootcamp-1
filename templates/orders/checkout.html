@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method='POST' action=".">{% csrf_token %}
+    
+    {{ form.as_p }}
+
+    <p>
+       <b>Subtotal</b> {{ object.subtotal }}
+    </p>
+    <p>
+        <b>Tax</b> {{ object.tax }}
+     </p>
+     <p>
+        <b>Total</b> {{ object.total }}
+     </p>
+    <button type='submit'>Complete Order</button>
+</form>
+
+
+
+{% endblock %}
+
