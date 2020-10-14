@@ -12,6 +12,8 @@ class ProductModelForm(forms.ModelForm):
         fields = [
             'title',
             'content',
+            'image',
+            'media',
         ]
         exclude = [
             'price'

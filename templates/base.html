@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,11 +8,14 @@
         
     </style>
     {% block head %}{% endblock %}
+    <link rel='stylesheet' href="{% static 'css/main.css'  %}"/>
 </head>
 
 <body>
 
     {% block content %}
+    <h1>Hello world</h1>
+    <a href='/download/'>Download</a>
     {% endblock %}
 
     {% block js %}
