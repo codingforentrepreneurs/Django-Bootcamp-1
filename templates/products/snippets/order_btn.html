@@ -1,0 +1,9 @@
+{% if can_order %}
+
+    <a class='btn btn-primary' href='/checkout'>${{ product.price }} {{ product.order_btn_title }}</a>
+
+    {% else %}
+        {% if form %}
+            {% include 'snippets/form.html' with form=form submit_btn='Add to waitlist' %}
+        {% endif %}
+    {% endif %}

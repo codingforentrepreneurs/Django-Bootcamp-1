@@ -13,6 +13,12 @@ from .forms import OrderForm
 from .models import Order
 
 @login_required
+def my_orders_view(request):
+    qs = Order.objects.filter(user=request.user, status='paid')
+    return render(request, "orders/my_orders.html", {'object_list': qs})
+
+
+@login_required
 def order_checkout_view(request):
     product_id = request.session.get("product_id") or None
     if product_id == None:
@@ -49,20 +55,25 @@ def order_checkout_view(request):
         order_obj.mark_paid(save=False)
         order_obj.save()
         del request.session['order_id']
+        request.session['checkout_success_order_id'] = order_obj.id
         return redirect("/success")
     return render(request, 'orders/checkout.html', {"form": form, "object": order_obj, "is_digital": product.is_digital})
 
-
-def download_order(request, *args, **kwargs):
+@login_required
+def download_order(request, order_id=None, *args, **kwargs):
     '''
     Download our order product media,
     if it exists.
     '''
-    order_id = 'abc'
-    qs = Product.objects.filter(media__isnull=False)
-    product_obj = qs.first()
+    if order_id == None:
+        return redirect("/orders")
+    qs = Order.objects.filter(id=order_id, user=request.user, status='paid', product__media__isnull=False)
+    if not qs.exists():
+        return redirect("/orders")
+    order_obj = qs.first()
+    product_obj = order_obj.product
     if not product_obj.media:
-        raise Http404
+        return redirect("/orders")
     media = product_obj.media
     product_path = media.path # /abc/adsf/media/csadsf/adsf.csv
     path = pathlib.Path(product_path) # os.path

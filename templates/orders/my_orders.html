@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for object in object_list %}
+
+<li>{{ object.product.title }} - {{ object.total }} {% if object.is_downloadable %}<a href='{{ object.get_download_url }}'>Download</a>{% endif %}</li>
+
+{% endfor %}
+
+
+
+{% endblock %}
+

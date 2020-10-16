@@ -1,6 +1,24 @@
 {% extends "base.html" %}
 
+{% block head %}
+
+{% if not object.product.requires_shipping %}
+<style>
+   .shipping-address-class {
+      display: none !important;
+   }
+</style>
+{% endif %}
+
+{% endblock %}
+
+
 {% block content %}
+<div class='row'>
+   <div class='col-md-3 order-md-2'>
+      <p>
+         <b>Product</b>:  {{ object.product.title }}
+      </p>
 <p>
    <b>Subtotal</b> {{ object.subtotal }}
 </p>
@@ -10,9 +28,15 @@
  <p>
     <b>Total</b> {{ object.total }}
  </p>
+</div>
 
+<div class='col-md-9'>
+   <h3>{{ object.product.title }} <small>${{ object.product.price }}</small></h3>
 
-{% include 'snippets/form.html' with form=form submit_btn='Complete Order' %}
+{% include 'snippets/form.html' with form=form submit_btn='Complete Order' btn_class='btn btn-primary' %}
+</div>
+
+</div>
 
 
 

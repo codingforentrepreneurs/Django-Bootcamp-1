@@ -9,8 +9,8 @@
 	allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 {% endif %}
 
-{% if product.content %}
-<p>{{ product.description }}</p>
+{% if show_content %}
+	{% include 'products/snippets/product_content.html' with product=product %}
 {% endif %}
 
 {% if show_price %}

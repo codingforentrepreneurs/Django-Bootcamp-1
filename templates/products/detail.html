@@ -8,19 +8,25 @@
 
 {% block content %}
 
-{% include "products/snippets/product_detail.html" with product=object %}
+<div class='row'>
+    <div class='col col-md-10'>
+        
+        {% include "products/snippets/product_detail.html" with product=object %}
+
+        <div class='d-block d-md-none'>
+            {% include "products/snippets/order_btn.html" with product=object can_order=can_order form=form %}
+        </div>
 
 
-{% if can_order %}
+        {% include 'products/snippets/product_content.html' with product=object %}
+    </div>
 
-<a href='/checkout'>${{ object.price }} {{ object.order_btn_title }}</a>
+    <div class='col-md-2 d-md-block d-none'>
 
-{% else %}
-    {% if form %}
-        {% include 'snippets/form.html' with form=form submit_btn='Add to waitlist' %}
-    {% endif %}
-{% endif %}
+        {% include "products/snippets/order_btn.html" with product=object can_order=can_order form=form %}
 
+    </div>
 
+</div>
 
 {% endblock content %}
