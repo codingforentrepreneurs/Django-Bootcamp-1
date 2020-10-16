@@ -1,0 +1,23 @@
+<h1>{{ product.title }}</h1>
+{% if product.image %}
+    <img src='{{ product.image.url }}' style='width:150px' />
+{% endif %}
+{% if product.video_link %}
+<iframe width="560" height="315" 
+	src="{{ product.video_link }}" 
+	frameborder="0" 
+	allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{% endif %}
+
+{% if product.content %}
+<p>{{ product.description }}</p>
+{% endif %}
+
+{% if show_price %}
+<p>${{ product.price }}</p>
+{% endif %}
+
+
+{% if show_inventory %}
+<p>{{ product.inventory }}</p>
+{% endif %}

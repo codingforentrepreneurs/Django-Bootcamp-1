@@ -1,12 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form method='POST' action="." enctype="multipart/form-data">{% csrf_token %}
-    
-    {{ form.as_p }}
 
+{% include 'snippets/form.html' with form=form %}
 
-    <button type='submit'>Send data</button>
-</form>
 {% endblock %}
 

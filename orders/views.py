@@ -14,10 +14,16 @@ from .models import Order
 
 @login_required
 def order_checkout_view(request):
-    qs = Product.objects.filter(featured=True)
-    if not qs.exists():
+    product_id = request.session.get("product_id") or None
+    if product_id == None:
         return redirect("/")
-    product = qs.first()
+    product = None
+    try:
+        product = Product.objects.get(id=product_id)
+    except:
+        # messages.success()
+        return redirect("/")
+
     # if not product.has_inventory():
     #     return redirect("/no-inventory")
     user = request.user # AnonUser
@@ -44,7 +50,7 @@ def order_checkout_view(request):
         order_obj.save()
         del request.session['order_id']
         return redirect("/success")
-    return render(request, 'orders/checkout.html', {"form": form, "object": order_obj})
+    return render(request, 'orders/checkout.html', {"form": form, "object": order_obj, "is_digital": product.is_digital})
 
 
 def download_order(request, *args, **kwargs):
